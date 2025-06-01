@@ -29,6 +29,7 @@ public class DVC {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         List<Aufgabe> aufgaben = new ArrayList<>();
+        long pausenDauer = 0;
 
         System.out.print("Wie viele Stunden möchtest du lernen? ");
         int stunden = scanner.nextInt();
@@ -86,6 +87,25 @@ public class DVC {
             fachzeiten.put(a.name, fachzeiten.getOrDefault(a.name, 0) + a.getEchteDauerInMinuten());
 
             System.out.println("✅ Fertig! Dauer: " + a.getEchteDauerInMinuten() + " Minuten.");
+
+         // Neue Pausen-Funktion
+         System.out.print("😌 Möchtest du eine Pause machen? (j/n): ");
+         String pauseAntwort = scanner.nextLine();
+         if (pauseAntwort.equalsIgnoreCase("j")) {
+             System.out.print("Drücke [Enter], um die Pause zu starten...");
+             scanner.nextLine();
+             long pauseStart = System.currentTimeMillis();
+
+             System.out.println("🧘‍♂️ Pause läuft... Drücke [Enter], wenn du weitermachen möchtest.");
+             scanner.nextLine();
+
+             long pauseEnde = System.currentTimeMillis();
+             long pauseDauerMillis = pauseEnde - pauseStart;
+             pausenDauer += pauseDauerMillis;
+
+             System.out.println("☕️ Pause beendet! Dauer: " + (pauseDauerMillis / 1000 / 60) + " Minuten.");
+         }
+
         }
 
         // Ausgabe
